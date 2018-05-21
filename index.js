@@ -9,7 +9,8 @@ const { resolve, basename, extname } = require('path')
 const program = require('commander')
 const nodemailer = require('nodemailer')
 
-const packageObject = JSON.parse(fs.readFileSync(resolve(__dirname, 'package.json')))
+const packagePath = resolve(__dirname, 'package.json')
+const packageObject = JSON.parse(fs.readFileSync(packagePath))
 
 /**
  * .def: getAttachments => paths => Object
@@ -69,7 +70,7 @@ const setConfig = config => {
     console.log('邮箱信息, 设置成功')
   }
 
-  fs.writeFileSync('package.json', JSON.stringify(packageObject, null, '\t'))
+  fs.writeFileSync(packagePath, JSON.stringify(packageObject, null, '\t'))
 }
 
 /**
