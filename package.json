@@ -4,5 +4,9 @@
   "main": "index.js",
   "repository": "https://github.com/pashangshangpo/send-kindle.git",
   "author": "爬上上坡 <pashangshangpo@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "commander": "^2.15.1",
+    "nodemailer": "^4.6.4"
+  }
 }
