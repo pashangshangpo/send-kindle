@@ -11,7 +11,37 @@ const nodemailer = require('nodemailer')
 const packageObject = JSON.parse(fs.readFileSync('./package.json'))
 
 const send = ({ user, pass, to, paths} = config) => {
+  const emailName = user.slice(user.lastIndexOf('@') + 1, user.lastIndexOf('.'))
 
+  let transporter = nodemailer.createTransport({
+      host: `smtp.${emailName}.com`,
+      port: 25,
+      secure: false,
+      auth: {
+          user: user,
+          pass: pass
+      }
+  })
+
+  let mailOptions = {
+      from: user,
+      to: to,
+      attachments: [
+          {
+              filename: '',
+              path: ''
+          }
+      ]
+  }
+
+
+  transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+          return console.log(error)
+      }
+
+      console.log('发送成功')
+  })
 }
 
 program
