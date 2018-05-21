@@ -42,31 +42,72 @@ const getAttachments = paths => {
   return attachments
 }
 
-const send = ({ user, pass, to, paths} = config) => {
+/**
+ * .def: setConfig: config => undefined
+ *   config: Object
+ *     to: String 接收的邮箱地址
+ *     from: String 发送邮箱地址和密码
+ */
+const setConfig = config => {
+  if (packageObject.kindleConfig) {
+    if (config.to) {
+      packageObject.kindleConfig.to = config.to
+    }
+
+    if (config.from) {
+      packageObject.kindleConfig.from = config.from
+    }
+
+    console.log('修改邮箱信息成功')
+  }
+  else {
+    packageObject.kindleConfig = {
+      to: config.to,
+      from: config.from
+    }
+
+    console.log('邮箱信息, 设置成功')
+  }
+
+  fs.writeFileSync('package.json', JSON.stringify(packageObject, null, '\t'))
+}
+
+/**
+ * .def: send: config => undefined
+ *   config: Object
+ *     user: String 邮箱地址
+ *     pass: String 邮箱密码
+ *     to: String 接收的邮箱地址
+ *     paths: Array [Item] 发送的附件列表
+ *       Item: Object
+ *         filename: String 文件名
+ *         path: String 文件路径
+ */
+const send = ({ user, pass, to, paths } = config) => {
   const emailName = user.slice(user.lastIndexOf('@') + 1, user.lastIndexOf('.'))
 
   let transporter = nodemailer.createTransport({
-      host: `smtp.${emailName}.com`,
-      port: 25,
-      secure: false,
-      auth: {
-          user: user,
-          pass: pass
-      }
+    host: `smtp.${emailName}.com`,
+    port: 25,
+    secure: false,
+    auth: {
+      user: user,
+      pass: pass
+    }
   })
 
   let mailOptions = {
-      from: user,
-      to: to,
-      attachments: getAttachments(paths)
+    from: user,
+    to: to,
+    attachments: getAttachments(paths)
   }
 
   transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-          return console.log(error)
-      }
+    if (error) {
+      return console.log(error)
+    }
 
-      console.log('发送成功')
+    console.log('发送成功')
   })
 }
 
@@ -92,25 +133,5 @@ if (!program.to && !program.from) {
   }
 }
 else {
-    if (packageObject.kindleConfig) {
-        if (program.to) {
-            packageObject.kindleConfig.to = program.to
-        }
-
-        if (program.from) {
-            packageObject.kindleConfig.from = program.from
-        }
-
-        console.log('修改邮箱信息成功')
-    }
-    else {
-        packageObject.kindleConfig = {
-            to: program.to,
-            from: program.from
-        }
-
-        console.log('邮箱信息, 设置成功')
-    }
-    
-    fs.writeFileSync('package.json', JSON.stringify(packageObject, null, '\t'))
+  setConfig(program)
 }
