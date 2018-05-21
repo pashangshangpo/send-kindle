@@ -9,7 +9,7 @@ const { resolve, basename, extname } = require('path')
 const program = require('commander')
 const nodemailer = require('nodemailer')
 
-const packageObject = JSON.parse(fs.readFileSync('../package.json'))
+const packageObject = JSON.parse(fs.readFileSync(resolve(__dirname, 'package.json')))
 
 /**
  * .def: getAttachments => paths => Object
