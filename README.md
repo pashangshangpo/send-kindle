@@ -13,10 +13,13 @@ send-kindle --to kindle邮箱地址, 如: xx@kindle.cn --from 发送者邮箱账
 
 send-kindle [filePath, fileDir] 可以是一个目录也可以是一个文件, 可以传递多个, 空格隔开
 
-## 示例
+## 使用示例
 
+```
 send-kindle --to xx@kindle.cn --from zh@qq.com:123456
+
 send-kindle aa.mobi bb.mobi cc.txt dd
+```
 
 ## 注意事项
 
