@@ -5,10 +5,42 @@
  */
 
 const fs = require('fs')
+const { resolve, basename, extname } = require('path')
 const program = require('commander')
 const nodemailer = require('nodemailer')
 
 const packageObject = JSON.parse(fs.readFileSync('./package.json'))
+
+/**
+ * .def: getAttachments => paths => Object
+ *   paths: Array [Item] 路径列表
+ *     Item: String 相对于当前控制台路径
+ *   @return: Array [Item]
+ *     Item: Object
+ *       filename: String 文件名
+ *       path: String 文件的绝对路径
+ */
+const getAttachments = paths => {
+  const attachments = []
+
+  const pushAttachment = paths => {
+    paths.forEach(path => {
+      if (fs.statSync(path).isDirectory()) {
+        pushAttachment(fs.readdirSync(resolve('.', path)).map(p => resolve('.', path, p)))
+      }
+      else {
+        attachments.push({
+          filename: basename(path),
+          path: resolve('.', path)
+        })
+      }
+    })
+  }
+
+  pushAttachment(paths)
+
+  return attachments
+}
 
 const send = ({ user, pass, to, paths} = config) => {
   const emailName = user.slice(user.lastIndexOf('@') + 1, user.lastIndexOf('.'))
@@ -26,14 +58,8 @@ const send = ({ user, pass, to, paths} = config) => {
   let mailOptions = {
       from: user,
       to: to,
-      attachments: [
-          {
-              filename: '',
-              path: ''
-          }
-      ]
+      attachments: getAttachments(paths)
   }
-
 
   transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
