@@ -1,12 +1,12 @@
 {
-  "name": "send-kindle",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "https://github.com/pashangshangpo/send-kindle.git",
-  "author": "爬上上坡 <pashangshangpo@gmail.com>",
-  "license": "MIT",
-  "devDependencies": {
-    "commander": "^2.15.1",
-    "nodemailer": "^4.6.4"
-  }
+	"name": "send-kindle",
+	"version": "1.0.0",
+	"main": "index.js",
+	"repository": "https://github.com/pashangshangpo/send-kindle.git",
+	"author": "爬上上坡 <pashangshangpo@gmail.com>",
+	"license": "MIT",
+	"devDependencies": {
+		"commander": "^2.15.1",
+		"nodemailer": "^4.6.4"
+	}
 }
