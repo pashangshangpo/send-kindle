@@ -17,3 +17,7 @@ send-kindle [filePath, fileDir] 可以是一个目录也可以是一个文件, �
 
 send-kindle --to xx@kindle.cn --from zh@qq.com:123456
 send-kindle aa.mobi bb.mobi cc.txt dd
+
+## 注意事项
+
+往kindle上传递书籍需要在亚马逊网站上将发送人的邮箱添加到白名单, 否则无法传递成功
