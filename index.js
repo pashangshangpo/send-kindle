@@ -97,9 +97,12 @@ const send = ({ user, pass, to, paths } = config) => {
     }
   })
 
+  let fileName = basename(paths[0])
+
   let mailOptions = {
     from: user,
     to: to,
+    subject: fileName.slice(0, fileName.indexOf('.')),
     attachments: getAttachments(paths)
   }
 
