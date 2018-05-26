@@ -6,7 +6,7 @@
 1.全局安装
 npm i send-kindle -g
 
-2.设置邮箱
+2.设置邮箱 (第一次使用需要设置, 之后如果账号信息没有更新则不需要)
 send-kindle --to kindle邮箱地址, 如: xx@kindle.cn --from 发送者邮箱账号密码, 如: zh@qq.com:mm
 
 3.在你本地书籍目录下执行
