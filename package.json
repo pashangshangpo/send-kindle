@@ -1,6 +1,6 @@
 {
 	"name": "send-kindle",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"main": "index.js",
 	"repository": "https://github.com/pashangshangpo/send-kindle.git",
 	"author": "爬上上坡 <pashangshangpo@gmail.com>",
